@@ -299,10 +299,8 @@ $$
 5. From (2) is equal (5):
 
 $$
-(v\dagger A) v = \lambda (v^\dagger v) = \bar{\lambda} (v^\dagger v)
-$$
-
-$$
+(v^\dagger A) v = \lambda (v^\dagger v) = \bar{\lambda} (v^\dagger v)
+\\
 (\lambda - \bar{\lambda})(v^\dagger v) = 0
 $$
 
@@ -321,3 +319,16 @@ $$
 $$
 
 We know $A \in \mathbb{R}^{n \times n}, \lambda \in \mathbb{R}$, Thus $\forall (A-\lambda I) \in \mathbb{R}$, Thus $\forall v \in \mathbb{R}$.
+
+### 2.2.3 Orthogonal of Eigen vector
+
+From the Spectral Theorem, if $H \in \mathbb{R}^{n \times n}$ and $H$ is symmetric ($H = H^T$), then eigen vector of $H$ will be orthogonal.
+
+Proving:
+
+1. Consider $Av_1 = \lambda_1 v_1 \ (1)$ and $Av_1 = \lambda_1 v_1 \ (2)$
+2. Start with $v_1^T (A v_2)$ to substitude $A v_2$:
+   $$
+   A \\
+   B
+   $$
