@@ -149,14 +149,11 @@ $$
 \boldsymbol{\theta}
 =
 \begin{bmatrix}
-\theta_1
-\\
-\theta_2
-\\
-\vdots
-\\
-\theta_n
+\theta_1 \\ \theta_2 \\ \vdots \\ \theta_n
 \end{bmatrix}
+$$
+
+$$
 
 , \quad
 
