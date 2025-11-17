@@ -22,11 +22,11 @@ A neural network consists of multiple layers, each containing several neurons. T
 
 The use of **activation functions** such as **ReLU**, **Sigmoid**, and **Tanh** is essential for enabling the network to form non-linear relationships. Multiple connected layers (**deep layers**) allow the model to learn highly complex patterns.
 
-<div style="text-align: center;">
+<center>
   <img src="docs-src\images\neuron-network.png" alt="Neural Network Overview" width="450px">
   <br>
   <em>Figure 1: Structure and connections of artificial neurons (Source: GeeksforGeeks [1])</em>
-</div>
+</center>
 
 ---
 
@@ -34,11 +34,11 @@ The use of **activation functions** such as **ReLU**, **Sigmoid**, and **Tanh** 
 
 A **_forward pass_** is the computation of the model’s output from the input, passing through all neurons and layers. The resulting prediction is then used to compute the **loss**, which will be utilized for gradient computation in the next section.
 
-<div style="text-align: center;">
+<center>
   <img src="docs-src\images\singular-neural.png" alt="Neural Network Overview" width="250px">
   <br>
   <em>Figure 2: Computation within a singular artificial neuron (Source: GeeksforGeeks [1])</em>
-</div>
+</center>
 
 #### 1.2.1 Affine Transformation in Each Layer
 
