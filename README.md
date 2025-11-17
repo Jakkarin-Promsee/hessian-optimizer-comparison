@@ -22,7 +22,7 @@ A neural network consists of multiple layers, each containing several neurons. T
 
 The use of **activation functions** such as **ReLU**, **Sigmoid**, and **Tanh** is essential for enabling the network to form non-linear relationships. Multiple connected layers (**deep layers**) allow the model to learn highly complex patterns.
 
-<p align="center">
+<p align="center"  style="text-align: center;">
   <img src="docs-src\images\neuron-network.png" alt="Neural Network Overview" width="450px">
   <br>
   <em>Figure 1: Structure and connections of artificial neurons (Source: GeeksforGeeks [1])</em>
@@ -241,7 +241,7 @@ $$ -->
 
 The quadratic form $Q(\mathbf{x}) = \mathbf{x}^T H \mathbf{x}$ is the second-order term of a function's Taylor expansion. It tells us about the local curvature (or shape) of the function $f(\mathbf{x})$ around a critical point.
 
-<p style="text-align: center;">
+<p align="center" >
   <img src="docs-src\latex\2.2.2.quadratic-form.png" alt="Neural Network Overview" width="500px">
 </p>
 
