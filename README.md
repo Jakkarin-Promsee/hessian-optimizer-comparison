@@ -124,7 +124,7 @@ $$
 = \frac{\partial \left( \frac{1}{n} \sum_{i=1}^{n} {(y_i - \hat{y}_i)^2} \right)}
        {\partial a^{l}}
   \cdot \frac{\partial f(z^{l})}{\partial z^{l}}
-= \frac{2}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i) \odot f'(z^{l})}
+= \frac{2}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i) \odot f'(z^{l})
 $$
 
 <br>
