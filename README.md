@@ -251,7 +251,7 @@ $$
 &= a^2 +2ab + b^2 \\
 &= \sum_{i=1}^n \sum_{j=1}^n h_{ij} x_i x_j \\
 &= \sum_{i=1}^n h_{ii} x_i^2 + \sum_{i \ne j}^n h_{ij} x_i x_j \\
-&= \sum_{i=1}^n h_{ii} x_i^2 + 2 \sum_{i<j}^n h_{ij} x_i x_j \in \mathbb{R} \quad \text{, where } \mathbf{H} \text{ is symmetric}
+&= \sum_{i=1}^n h_{ii} x_i^2 + 2 \sum_{i \lt j}^n h_{ij} x_i x_j \in \mathbb{R} \quad \text{, where } \mathbf{H} \text{ is symmetric}
 &= fuck
 \end{align*}
 $$
