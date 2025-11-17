@@ -328,9 +328,10 @@ Proving:
 
 1. Consider $Av_1 = \lambda_1 v_1 \ (1)$ and $Av_1 = \lambda_1 v_1 \ (2)$
 2. Start with $v_1^T (A v_2)$ to substitude $A v_2$:
-   $$
-   \begin{array}{l}
-   a = b + c \\
-   d = e + f
-   \end{array}
-   $$
+
+$$
+\begin{array}{l}
+a = b + c \\
+d = e + f
+\end{array}
+$$
