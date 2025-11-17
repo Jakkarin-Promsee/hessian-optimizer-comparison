@@ -34,11 +34,11 @@ The use of **activation functions** such as **ReLU**, **Sigmoid**, and **Tanh** 
 
 A **_forward pass_** is the computation of the model’s output from the input, passing through all neurons and layers. The resulting prediction is then used to compute the **loss**, which will be utilized for gradient computation in the next section.
 
-<center>
+<p align="center">
   <img src="docs-src\images\singular-neural.png" alt="Neural Network Overview" width="250px">
   <br>
   <em>Figure 2: Computation within a singular artificial neuron (Source: GeeksforGeeks [1])</em>
-</center>
+</p>
 
 #### 1.2.1 Affine Transformation in Each Layer
 
