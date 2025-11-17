@@ -138,7 +138,7 @@ $$
 
 # 3. Working Principles of the Hessian in Deep Learning
 
-## 2.1 Dimensions and Interpretation of the Hessian
+## 3.1 Dimensions and Interpretation of the Hessian
 
 - **Gradient (First-order derivative):** $\nabla L(\theta) \in \mathbb{R}^n$ ,Describes the slope of $L$
 
@@ -211,9 +211,9 @@ H(\boldsymbol{\theta})
 \end{bmatrix}
 $$ -->
 
-## 2.2 Components and Fundamental Properties of the Hessian
+## 3.2 Components and Fundamental Properties of the Hessian
 
-### 2.2.1 Sysmetrix Properties
+### 3.2.1 Sysmetrix Properties
 
 From Clairaut's Theorem (Equality of Mixed Partials), If mixed second partial derivatives are continuous over a region, then:
 
@@ -237,7 +237,7 @@ H_{ij}(\theta)
 H_{ji}(\theta)
 $$ -->
 
-### 2.2.2 Quadratic Form
+### 3.2.2 Quadratic Form
 
 The quadratic form $Q(\mathbf{x}) = \mathbf{x}^T H \mathbf{x}$ is the second-order term of a function's Taylor expansion. It tells us about the local curvature (or shape) of the function $f(\mathbf{x})$ around a critical point.
 
@@ -258,7 +258,7 @@ $$ -->
 - If Q(x) < 0, the function is concave and the critical point is a local maximum.
 - If Q(x) takes on both signs, the critical point is a saddle point.
 
-### 2.2.3 Eigen-decomposit
+### 3.2.3 Eigen-decomposit
 
 From the Spectral Theorem, if $H \in \mathbb{R}^{n \times n}$ and $H$ is symmetric ($H = H^T$), then:
 
@@ -318,7 +318,7 @@ $$
 
 We know $A \in \mathbb{R}^{n \times n}, \lambda \in \mathbb{R}$, Thus $\forall (A-\lambda I) \in \mathbb{R}$, Thus $\forall v \in \mathbb{R}$.
 
-### 2.2.3 Orthogonal of Eigen vector
+### 3.2.4 Orthogonal of Eigen vector
 
 From the Spectral Theorem, if $H \in \mathbb{R}^{n \times n}$ and $H$ is symmetric ($H = H^T$), then eigen vector of $H$ will be orthogonal.
 
@@ -337,13 +337,13 @@ $$
 3. Since $v^T (A v)$ is sclale 1 x 1, $v^T (A v) = [v^T (A v)]^T$. From (3):
 
 $$
-\begin{array}{l}
-(A v_2) = [v_1^T (A v_2)]^T \\
-(A v_2) = v_2^T A^T v_1 \quad, A \ \text{is symmetric} \\
-(A v_2) = v_2^T A v_1 \quad, \text{substitude (1)} \\
-(A v_2) = v_2^T (\lambda_1 v_1) \\
-(A v_2) = \lambda_1 (v_2^T v_1) \quad (4)
-\end{array}
+\begin{align*}
+(A v_2) &= [v_1^T (A v_2)]^T \\
+&= v_2^T A^T v_1 \quad, A \ \text{is symmetric} \\
+&= v_2^T A v_1 \quad, \text{substitude (1)} \\
+&= v_2^T (\lambda_1 v_1) \\
+&= \lambda_1 (v_2^T v_1) \quad (4)
+\end{align*}
 $$
 
 4. (3) is equal (4):
@@ -357,12 +357,37 @@ $$
 
 5. As spectral's theorem, we know $\lambda_i \in \mathbb{R}, \quad \text{for all } i = 1, \ldots, n ,\quad \mathbf{v}_i \in \mathbb{R}^n, \quad \text{for all } i = 1, \ldots, n$. So $\lambda_1 \ne \lambda_2$, making $(\lambda_1 \ne \lambda_2)$ is non-zero. Thus, $(v_1^T v_2) = 0$ or $v_1 \dot v_2$ = 0. Thus $v_1$ and $v_1$ is orthogonal.
 
+### 3.2.5 Quadratic Form of symmetric Hessain for Eigen-decomposit
+
+The Hessian matrix, $\mathbf{H}$, being symmetric ($\mathbf{H} = \mathbf{H}^T$), can be decomposed via the Spectral Theorem as $\mathbf{H} = \mathbf{Q} \mathbf{\Lambda} \mathbf{Q}^T$. In this decomposition, the eigenvalues ($\lambda_i$) are guaranteed to be real numbers, and the corresponding eigenvectors ($\mathbf{v}_i$), collected in the orthogonal matrix $\mathbf{Q}$, form a basis of principal directions.
+
+Applying this decomposition to the quadratic form $Q(\mathbf{x}) = \mathbf{x}^T \mathbf{H} \mathbf{x}$ allows for a precise analysis of the local curvature. The eigenvalues $\lambda_i$ quantify the magnitude and sign of the curvature along the unique directions defined by the eigenvectors $\mathbf{v}_i$.
+
+$$
+\begin{align*}
+Q(x) = x^T H x &= x^T Q \Lambda Q^T x \\
+&= (Q^T x)^T \Lambda (Q^T x) \\
+&= \sum_{i}^n \Lambda_{ii} (Q^T x)_i^2 + 2 \sum_{i<j}^n \Lambda_{ii} (Q^T x)\_i (Q^T x)\_j \\
+&= \sum_{i}^n \lambda\_{ii} (v_i^T x)^2
+\end{align*}
+$$
+
+- $\lambda_i$ = Priciple Maginitude.
+- $v_i$ = Priciple Direction.
+- $(v_i^T x)^2$ = Contribution of $x$ in $v_i$ direction.
+
 ---
 
 # Prop
 
 $$
+
 \begin{array}{l}
 
 \end{array}
+
+
+$$
+
+$$
 $$
