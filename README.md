@@ -117,10 +117,10 @@ $
 #### 1.2.2.1 Derivative of Loss w.r.t. Activation
 
 $\displaystyle
-\delta^{l} 
-= \frac{\partial L}{\partial z^{l}} 
-= \frac{\partial L}{\partial a^{l}} \frac{\partial a^{l}}{\partial z^{l}} 
-= \frac{\frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2} {\partial a^{l-1}} \frac {f(z^{l})} {\partial z^l} 
+\delta^{l}
+= \frac{\partial L}{\partial z^{l}}
+= \frac{\partial L}{\partial a^{l}} \frac{\partial a^{l}}{\partial z^{l}}
+= \frac{\frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2} {\partial a^{l-1}} \frac {f(z^{l})} {\partial z^l}
 =\frac{2}{n}\sum_{i=1}^{n}(y_i-\hat{y}_{i}) \odot f'(z^{l})
 $
 
