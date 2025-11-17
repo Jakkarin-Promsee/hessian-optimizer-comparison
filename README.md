@@ -217,10 +217,6 @@ $$ -->
 
 From Clairaut's Theorem (Equality of Mixed Partials), If mixed second partial derivatives are continuous over a region, then:
 
-<p align="center"  style="text-align: center;">
-  <img src="docs-src\latex\2.2.1.sysmmetic-properties.png" alt="Neural Network Overview" width="500px">
-</p>
-
 $$
 \frac{\partial^2 f(x)} {\partial x_i \partial x_j}
 = \frac{\partial^2 f(x)} {\partial x_j \partial x_i} \quad
@@ -229,25 +225,6 @@ H_{ij}(\theta)
 = \frac{\partial^2 f(x)} {\partial \theta_i \partial \theta_j}
 = \frac{\partial^2 f(x)} {\partial \theta_j \partial \theta_i}
 = H_{ji}(\theta)
-$$
-
-f
-
-$$
-% \quad \rightarrow \quad
-% H_{ij}(\theta)
-=
-
-
-
-
-
-
-\frac{\partial^2 L(\theta)} {\partial \theta_i \partial \theta_j}
-=
-\frac{\partial^2 L(\theta)} {\partial \theta_j \partial \theta_i}
-=
-H_{ji}(\theta)
 $$
 
 ### 3.2.2 Quadratic Form
