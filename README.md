@@ -289,7 +289,7 @@ $$
 
 $$
 \begin{array}{l}
-v^\dagger A^\dagger v = v^\dagger \bar{A}^T v = v^\dagger A v \quad (4)
+v^\dagger A^\dagger v = v^\dagger \bar{A}^T v = v^\dagger A v \quad (4) \\
 v^\dagger A^\dagger v = [\lambda (v^\dagger v)]^\dagger = \bar{\lambda} (v^\dagger v) \quad (5)
 \end{array}
 $$
@@ -329,7 +329,7 @@ Proving:
 
 $$
 \begin{array}{l}
-v_1^T (A v_2) = v_1^T (\lambda_2 v_2) \quad \\[8pt]
+v_1^T (A v_2) = v_1^T (\lambda_2 v_2) \quad \\
 v_1^T (A v_2) = \lambda_2 (v_1^T v_2) \quad (3)
 \end{array}
 $$
@@ -338,11 +338,11 @@ $$
 
 $$
 \begin{array}{l}
-v_1^T (A v_2) = [v_1^T (A v_2)]^T \\[8pt]
-v_1^T (A v_2) = v_2^T A^T v_1 \quad, A \ \text{is symmetric} \\[8pt]
-v_1^T (A v_2) = v_2^T A v_1 \quad, \text{substitude (1)} \\[8pt]
-v_1^T (A v_2) = v_2^T (\lambda_1 v_1) \\[8pt]
-v_1^T (A v_2) = \lambda_1 (v_2^T v_1) \quad (4)
+(A v_2) = [v_1^T (A v_2)]^T \\
+(A v_2) = v_2^T A^T v_1 \quad, A \ \text{is symmetric} \\
+(A v_2) = v_2^T A v_1 \quad, \text{substitude (1)} \\
+(A v_2) = v_2^T (\lambda_1 v_1) \\
+(A v_2) = \lambda_1 (v_2^T v_1) \quad (4)
 \end{array}
 $$
 
@@ -350,7 +350,7 @@ $$
 
 $$
 \begin{array}{c}
-\lambda_1 (v_2^T v_1) = \lambda_2 (v_1^T v_2) \\[8pt]
+\lambda_1 (v_2^T v_1) = \lambda_2 (v_1^T v_2) \\
 (\lambda_1-\lambda_2)(v_1^T v_2) = 0
 \end{array}
 $$
