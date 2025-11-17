@@ -237,8 +237,8 @@ $$
 \begin{align*}
 Q(\mathbf{x}) &= \mathbf{x}^T H \mathbf{x} \in \mathbb{R}, \quad \forall \mathbf{x} \in \mathbb{R}^n \quad \text{(The Quadratic Form)} \\
 &= \sum_{i=1}^n \sum_{j=1}^n h_{ij} x_i x_j \\
-&= \sum_{i} h_{ii} x_i^2 + \sum_{i<j} h_{ij} x_i x_j + \sum_{j<i} h_{ji} x_j x_i \\
-&= \sum_{i} h_{ii} x_i^2 + 2 \sum_{i<j} h_{ij} x_i x_j \in \mathbb{R} \quad \text{, where } H \text{ is symmetric}
+&= \sum_{i}^n h_{ii} x_i^2 + \sum_{i<j}^n h_{ij} x_i x_j + \sum_{j<i}^n h_{ji} x_j x_i \\
+&= \sum_{i}^n h_{ii} x_i^2 + 2 \sum_{i<j}^n h_{ij} x_i x_j \in \mathbb{R}^n \quad \text{, where } H \text{ is symmetric}
 \end{align*}
 $$
 
