@@ -130,8 +130,7 @@ $
 
 $\displaystyle
 \frac{\partial L}{\partial W^{l}} = (a^{l-1})^\top \delta^{l}, \quad 
-\frac{\partial L}{\partial b^{l}} = \delta^{l}
-$
+\frac{\partial L}{\partial b^{l}} = \delta^{l}$
 
 <br>
 
