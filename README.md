@@ -116,7 +116,7 @@ $
 
 #### 1.2.2.1 Derivative of Loss w.r.t. Activation
 
-$\displaystyle
+$
 \delta^{l} 
 = \frac{\partial L}{\partial z^{l}} 
 = \frac{\partial L}{\partial a^{l}} 
