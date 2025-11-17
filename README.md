@@ -22,11 +22,11 @@ A neural network consists of multiple layers, each containing several neurons. T
 
 The use of **activation functions** such as **ReLU**, **Sigmoid**, and **Tanh** is essential for enabling the network to form non-linear relationships. Multiple connected layers (**deep layers**) allow the model to learn highly complex patterns.
 
-<center>
+<div style="display:block;text-align:center">
   <img src="docs-src\images\neuron-network.png" alt="Neural Network Overview" width="450px">
   <br>
   <em>Figure 1: Structure and connections of artificial neurons (Source: GeeksforGeeks [1])</em>
-</center>
+</div>
 
 ---
 
