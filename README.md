@@ -18,9 +18,9 @@ _(Content to be added here)_
 
 #### 1.1 Neural Networks and Non-linear Relations
 
-A neural network consists of multiple layers, each containing several neurons. These neurons are connected through **weights** and **biases**. The connections between neurons allow the system to create a **non-linear mapping** from input to output.
+A neural network consists of multiple layers, each containing several neurons. These neurons are connected through \dagger\daggerweights\dagger\dagger and \dagger\daggerbiases\dagger\dagger. The connections between neurons allow the system to create a \dagger\daggernon-linear mapping\dagger\dagger from input to output.
 
-The use of **activation functions** such as **ReLU**, **Sigmoid**, and **Tanh** is essential for enabling the network to form non-linear relationships. Multiple connected layers (**deep layers**) allow the model to learn highly complex patterns.
+The use of \dagger\daggeractivation functions\dagger\dagger such as \dagger\daggerReLU\dagger\dagger, \dagger\daggerSigmoid\dagger\dagger, and \dagger\daggerTanh\dagger\dagger is essential for enabling the network to form non-linear relationships. Multiple connected layers (\dagger\daggerdeep layers\dagger\dagger) allow the model to learn highly complex patterns.
 
 <p align="center">
   <img src="docs-src\images\neuron-network.png" alt="Neural Network Overview" width="450px">
@@ -32,7 +32,7 @@ The use of **activation functions** such as **ReLU**, **Sigmoid**, and **Tanh** 
 
 ### 1.2 Forward Pass Computation
 
-A **_forward pass_** is the computation of the model’s output from the input, passing through all neurons and layers. The resulting prediction is then used to compute the **loss**, which will be utilized for gradient computation in the next section.
+A \dagger\dagger*forward pass*\dagger\dagger is the computation of the model’s output from the input, passing through all neurons and layers. The resulting prediction is then used to compute the \dagger\daggerloss\dagger\dagger, which will be utilized for gradient computation in the next section.
 
 <p align="center">
   <img src="docs-src\images\singular-neural.png" alt="Neural Network Overview" width="250px">
@@ -48,9 +48,9 @@ $$\displaystyle z^{(l)} = a^{(l-1)} W^{(l)} + b^{(l)}$$
 
 where:
 
-- $\displaystyle a^{(l-1)}$ : activation from the **previous layer**
-- $\displaystyle W^{(l)}$ : **weight matrix**
-- $\displaystyle b^{(l)}$ : **bias vector**
+- $\displaystyle a^{(l-1)}$ : activation from the \dagger\daggerprevious layer\dagger\dagger
+- $\displaystyle W^{(l)}$ : \dagger\daggerweight matrix\dagger\dagger
+- $\displaystyle b^{(l)}$ : \dagger\daggerbias vector\dagger\dagger
 
 #### 1.2.2 Activation Computation
 
@@ -58,7 +58,7 @@ The activation of the current layer is then computed as:
 
 $$\displaystyle a^{(l)} = f(z^{(l)})$$
 
-where $f(x)$ is an **activation function** such as ReLU, Sigmoid, or Tanh.
+where $f(x)$ is an \dagger\daggeractivation function\dagger\dagger such as ReLU, Sigmoid, or Tanh.
 
 #### 1.2.3 Recursive Computation Through All Layers
 
@@ -72,7 +72,7 @@ until the last layer $L$, $a^{(L)}$, which is the model's final prediction. We d
 
 $$\displaystyle L = \frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2$$
 
-Typically, **Mean Square Error (MSE)** is used to compute the prediction error. We perform forward computation for $N$ inputs in a batch, and the error is averaged to obtain a scalar loss value.
+Typically, \dagger\daggerMean Square Error (MSE)\dagger\dagger is used to compute the prediction error. We perform forward computation for $N$ inputs in a batch, and the error is averaged to obtain a scalar loss value.
 
 ---
 
@@ -80,7 +80,7 @@ Typically, **Mean Square Error (MSE)** is used to compute the prediction error. 
 
 ### 2.1 Parameter Updates
 
-The idea is to use the **slope of the function** (first-order derivative or **gradient**) to determine the correct direction for updating parameters.
+The idea is to use the \dagger\daggerslope of the function\dagger\dagger (first-order derivative or \dagger\daggergradient\dagger\dagger) to determine the correct direction for updating parameters.
 
 $$
 \displaystyle
@@ -89,16 +89,16 @@ W^{(l)} = W^{(l)} - \eta \frac{\partial L}{\partial W^{(l)}}, \quad
 b^{(l)} = b^{(l)} - \eta \frac{\partial L}{\partial b^{(l)}}
 $$
 
-**Example:**
+\dagger\daggerExample:\dagger\dagger
 If the gradient of the loss $L$ with respect to $W^{(l)}$ is 2, it means:
 
 - If we increase $W^{(l)}$ by 1 unit, the loss $L$ increases by 2 units.
 
-To reduce the error, we adjust $W^{(l)}$ in the **_opposite direction of the gradient_**, scaled by the **learning rate** $\eta$.
+To reduce the error, we adjust $W^{(l)}$ in the \dagger\dagger*opposite direction of the gradient*\dagger\dagger, scaled by the \dagger\daggerlearning rate\dagger\dagger $\eta$.
 
 ### 2.2 Backward Pass (First-Order Derivative Computation)
 
-The **backward pass** calculates the gradient of the loss function with respect to the parameters using the **Chain Rule**.
+The \dagger\daggerbackward pass\dagger\dagger calculates the gradient of the loss function with respect to the parameters using the \dagger\daggerChain Rule\dagger\dagger.
 
 The first-order derivative of every parameter is computed by iterating backward from the final layer $L$ to the first layer.
 
@@ -111,7 +111,7 @@ $$
 
 #### 2.2.1 Derivative of Loss w.r.t. Affine Input ($\delta^l$)
 
-The **delta** ($\delta^l$) is the derivative of the loss with respect to the un-activated output ($z^l$).
+The \dagger\daggerdelta\dagger\dagger ($\delta^l$) is the derivative of the loss with respect to the un-activated output ($z^l$).
 
 $$\displaystyle \delta^{l} = \frac{\partial L}{\partial z^{l}} = \frac{\partial L}{\partial a^{l}} \cdot \frac{\partial a^{l}}{\partial z^{l}} = \frac{\partial \left( \frac{1}{n} \sum_{i=1}^{n} {(y_i - \hat{y}_i)^2} \right)}{\partial a^{l}} \cdot \frac{\partial f(z^{l})}{\partial z^{l}} = \frac{2}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i) \odot f'(z^{l})$$
 
@@ -140,12 +140,12 @@ $$
 
 ## 2.1 Dimensions and Interpretation of the Hessian
 
-- **Gradient (First-order derivative):** $\nabla L(\theta) \in \mathbb{R}^n$ ,Describes the slope of $L$
+- \dagger\daggerGradient (First-order derivative):\dagger\dagger $\nabla L(\theta) \in \mathbb{R}^n$ ,Describes the slope of $L$
 
-- **Hessian (Second-order derivative):** $\nabla^2 L(\theta) = H(\theta) \in \mathbb{R}^{n \times n}$ ,Describes the curvature of $L$
+- \dagger\daggerHessian (Second-order derivative):\dagger\dagger $\nabla^2 L(\theta) = H(\theta) \in \mathbb{R}^{n \times n}$ ,Describes the curvature of $L$
 
 <p align="center">
-  <img src="docs-src\latex\2.1.hessain-dimension.png" alt="Neural Network Overview" width="700px">
+  <img src="docs-src\latex\2.1.hessain-dimension.png" alt="Neural Network Overview" width="600px">
 </p>
 
 <!-- $$
@@ -217,7 +217,11 @@ $$ -->
 
 From Clairaut's Theorem (Equality of Mixed Partials), If mixed second partial derivatives are continuous over a region, then:
 
-$$
+<p align="center">
+  <img src="docs-src\latex\2.2.1.sysmmetic-properties.png" alt="Neural Network Overview" width="500px">
+</p>
+
+<!-- $$
 \frac{\partial^2 f(x)}{\partial x_i\partial x_j}
 =
 \frac{\partial^2 f(x)}{\partial x_j\partial x_i}
@@ -231,7 +235,7 @@ H_{ij}(\theta)
 \frac{\partial^2 L(\theta)}{\partial\theta_j\partial\theta_i}
 =
 H_{ji}(\theta)
-$$
+$$ -->
 
 ### 2.2.2 Quadratic Form
 
@@ -242,12 +246,12 @@ The quadratic form $Q(\mathbf{x}) = \mathbf{x}^T H \mathbf{x}$ is the second-ord
 </p>
 
 <!-- $$
-\begin{align*}
+\begin{align\dagger}
 Q(\mathbf{x}) &= \mathbf{x}^T H \mathbf{x} \in \mathbb{R}, \quad \forall \mathbf{x} \in \mathbb{R}^n \quad \text{(The Quadratic Form)} \\
 &= \sum_{i=1}^n \sum_{j=1}^n h_{ij} x_i x_j \\
 &= \sum_{i}^n h_{ii} x_i^2 + \sum_{i<j}^n h_{ij} x_i x_j + \sum_{j<i}^n h_{ji} x_j x_i \\
 &= \sum_{i}^n h_{ii} x_i^2 + 2 \sum_{i<j}^n h_{ij} x_i x_j \in \mathbb{R}^n \quad \text{, where } H \text{ is symmetric}
-\end{align*}
+\end{align\dagger}
 $$ -->
 
 - If Q(x) > 0, the function is convex and the critical point is a local minimum.
@@ -266,28 +270,28 @@ $$
 Proving:
 
 1. $A \in \mathbb{R}^{n \times n}, \lambda \in \mathbb{R}, v \in \mathbb{R}^2$ that $Av = \lambda v \ (1)$
-2. take (1) with $v^*$ from both left size
+2. take (1) with $v^\dagger$ from both left size
    $$
-   v^* (Av) = v^* (\lambda v) \quad \ \\
-   (v* A) v = \lambda (v^* v) \quad (2)
+   v^\dagger (Av) = v^\dagger (\lambda v) \quad \ \\
+   (v^\dagger A) v = \lambda (v^\dagger v) \quad (2)
    $$
 3. take (2) with conjugate transpose
    $$
-   [(v^* A) v]^* = v^* A^* v^{**} = v^* A^* v \quad (3)
+   [(v^\dagger A) v]^\dagger = v^\dagger A^\dagger v^{\dagger\dagger} = v^\dagger A^\dagger v \quad (3)
    $$
 4. Because $A \in \mathbb{R}^{n \times n}$, making $\bar{A} = A$. And because $A$ is a symmetric, making $A^T = A$. So from (3):
    $$
-    v^* A^* v = v^* \bar{A}^T v = v^* A v \quad (4)
+    v^\dagger A^\dagger v = v^\dagger \bar{A}^T v = v^\dagger A v \quad (4)
    $$
    $$
-   v^* A^* v = [\lambda (v^* v)]^* = \bar{\lambda} (v^* v) \quad (5)
+   v^\dagger A^\dagger v = [\lambda (v^\dagger v)]^\dagger = \bar{\lambda} (v^\dagger v) \quad (5)
    $$
 5. From (2) is equal (5):
    $$
-   (v* A) v = \lambda (v^* v) = \bar{\lambda} (v^* v) \\[10pt]
-   (\lambda - \bar{\lambda})(v^* v) = 0
+   (v\dagger A) v = \lambda (v^\dagger v) = \bar{\lambda} (v^\dagger v) \\[10pt]
+   (\lambda - \bar{\lambda})(v^\dagger v) = 0
    $$
-6. Because $v^* v \ne 0$, So:
+6. Because $v^\dagger v \ne 0$, So:
 
    $$
     (\lambda - \bar{\lambda}) = 0 \quad \rightarrow \quad
