@@ -12,7 +12,7 @@ _(Content to be added here)_
 
 ---
 
-## Detail Description
+## Full Proof
 
 ### 1. Principles of Deep Learning
 
@@ -76,9 +76,9 @@ Typically, **Mean Square Error (MSE)** is used to compute the prediction error. 
 
 ---
 
-## 2. First-Order Derivatives (Gradient)
+### 1.3 First-Order Derivatives (Gradient)
 
-### 2.1 Parameter Updates
+#### 1.3.1 Parameter Updates
 
 The idea is to use the **slope of the function** (first-order derivative or **gradient**) to determine the correct direction for updating parameters.
 
@@ -96,7 +96,7 @@ If the gradient of the loss $L$ with respect to $W^{(l)}$ is 2, it means:
 
 To reduce the error, we adjust $W^{(l)}$ in the **_opposite direction of the gradient_**, scaled by the **learning rate** $\eta$.
 
-### 2.2 Backward Pass (First-Order Derivative Computation)
+#### 1.3.2 Backward Pass (First-Order Derivative Computation)
 
 The **backward pass** calculates the gradient of the loss function with respect to the parameters using the **Chain Rule**.
 
@@ -109,13 +109,13 @@ a^{l} = f(z^{l}), \quad
 L = \frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2
 $$
 
-#### 2.2.1 Derivative of Loss w.r.t. Affine Input ($\delta^l$)
+##### 1.3.2.1 Derivative of Loss w.r.t. Affine Input ($\delta^l$)
 
 The **delta** ($\delta^l$) is the derivative of the loss with respect to the un-activated output ($z^l$).
 
 $$\displaystyle \delta^{l} = \frac{\partial L}{\partial z^{l}} = \frac{\partial L}{\partial a^{l}} \cdot \frac{\partial a^{l}}{\partial z^{l}} = \frac{\partial \left( \frac{1}{n} \sum_{i=1}^{n} {(y_i - \hat{y}_i)^2} \right)}{\partial a^{l}} \cdot \frac{\partial f(z^{l})}{\partial z^{l}} = \frac{2}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i) \odot f'(z^{l})$$
 
-#### 2.2.2 Gradient w.r.t. Weights and Biases (Chain Rule)
+##### 1.3.2.2 Gradient w.r.t. Weights and Biases (Chain Rule)
 
 The gradients for the weights ($W^l$) and biases ($b^l$) are computed using $\delta^l$ and the activation from the previous layer:
 
@@ -125,7 +125,7 @@ $$
 \frac{\partial L}{\partial b^{l}} = \delta^{l}
 $$
 
-#### 2.2.3 Backpropagating Delta to the Previous Layer
+##### 1.3.2.3 Backpropagating Delta to the Previous Layer
 
 The delta is then propagated to the previous layer ($l-1$) to continue the backpropagation process:
 
@@ -136,9 +136,9 @@ $$
 
 ---
 
-# 3. Working Principles of the Hessian in Deep Learning
+# 2. Components and Fundamental Properties of the Hessian
 
-## 3.1 Dimensions and Interpretation of the Hessian
+## 2.1 Dimensions and Interpretation of the Hessian
 
 - **Gradient (First-order derivative):** $\nabla L(\theta) \in \mathbb{R}^n$ ,Describes the slope of $L$
 
@@ -211,9 +211,7 @@ H(\boldsymbol{\theta})
 \end{bmatrix}
 $$ -->
 
-## 3.2 Components and Fundamental Properties of the Hessian
-
-### 3.2.1 Sysmetrix Properties
+### 2.2 Sysmetrix Properties
 
 From Clairaut's Theorem (Equality of Mixed Partials), If mixed second partial derivatives are continuous over a region, then:
 
@@ -227,7 +225,7 @@ H_{ij}(\theta)
 = H_{ji}(\theta)
 $$
 
-### 3.2.2 Quadratic Form
+### 2.3 Quadratic Form
 
 The quadratic form $Q(\mathbf{x}) = \mathbf{x}^T H \mathbf{x}$ is the second-order term of a function's Taylor expansion. It tells us about the local curvature (or shape) of the function $f(\mathbf{x})$ around a critical point.
 
@@ -240,11 +238,11 @@ Q(\mathbf{x}) &= \mathbf{x}^T \mathbf{H} \mathbf{x} \in \mathbb{R}, \quad \foral
 \end{align*}
 $$
 
-- If Q(x) > 0, the function is convex and the critical point is a local minimum.
-- If Q(x) < 0, the function is concave and the critical point is a local maximum.
-- If Q(x) takes on both signs, the critical point is a saddle point.
+- If Q(x) > 0 (Positive Definite), the function is convex and the critical point is a local minimum.
+- If Q(x) < 0 (Negative Definite), the function is concave and the critical point is a local maximum.
+- If Q(x) takes on both signs (Indefinite), the critical point is a saddle point.
 
-### 3.2.3 Eigen-decomposit
+### 2.4 Eigen-decomposit
 
 From the Spectral Theorem, if $H \in \mathbb{R}^{n \times n}$ and $H$ is symmetric ($H = H^T$), then:
 
@@ -304,7 +302,7 @@ $$
 
 We know $A \in \mathbb{R}^{n \times n}, \lambda \in \mathbb{R}$, Thus $\forall (A-\lambda I) \in \mathbb{R}$, Thus $\forall v \in \mathbb{R}$.
 
-### 3.2.4 Orthogonal of Eigen vector
+### 2.5 Orthogonal of Eigen vector
 
 From the Spectral Theorem, if $H \in \mathbb{R}^{n \times n}$ and $H$ is symmetric ($H = H^T$), then eigen vector of $H$ will be orthogonal.
 
@@ -343,7 +341,7 @@ $$
 
 5. As spectral's theorem, we know $\lambda_i \in \mathbb{R}, \quad \text{for all } i = 1, \ldots, n ,\quad \mathbf{v}_i \in \mathbb{R}^n, \quad \text{for all } i = 1, \ldots, n$. So $\lambda_1 \ne \lambda_2$, making $(\lambda_1 \ne \lambda_2)$ is non-zero. Thus, $(v_1^T v_2) = 0$ or $v_1 \dot v_2$ = 0. Thus $v_1$ and $v_1$ is orthogonal.
 
-### 3.2.5 Quadratic Form of symmetric Hessain for Eigen-decomposit
+### 2.6 Quadratic Form of symmetric Hessain for Eigen-decomposit
 
 The Hessian matrix, $\mathbf{H}$, being symmetric ($\mathbf{H} = \mathbf{H}^T$), can be decomposed via the Spectral Theorem as $\mathbf{H} = \mathbf{Q} \mathbf{\Lambda} \mathbf{Q}^T$. In this decomposition, the eigenvalues ($\lambda_i$) are guaranteed to be real numbers, and the corresponding eigenvectors ($\mathbf{v}_i$), collected in the orthogonal matrix $\mathbf{Q}$, form a basis of principal directions.
 
