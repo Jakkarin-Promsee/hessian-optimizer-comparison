@@ -1,5 +1,48 @@
 # 📈 Hessian Optimization Theory in Deep Learning
 
+## Project Structure
+
+```bash
+project/
+│
+├── core/                       # The absolute fundamentals
+│   ├── tensor_ops.py           # Your numpy wrappers, shape checks
+│   └── base_model.py           # Fit(), predict(), save(), etc.
+│
+├── layers/                     # Pure layer implementations
+│   ├── dense.py
+│   ├── activation.py
+│   ├── dropout.py
+│   └── conv.py
+│
+├── models/                     # Training *strategies*
+│   ├── explicit_gd.py
+│   ├── implicit_gd.py
+│   ├── newton_gd.py
+│   ├── quasi_newton.py
+│   └── __init__.py
+│
+├── utils/                      # Tools, not ML logic
+│   ├── history.py
+│   ├── metrics.py
+│   ├── initializer.py
+│   ├── random.py
+│   └── visualization.py
+│
+├── optimizers/                 # optional: Adam, RMSProp, LR schedulers
+│   ├── sgd.py
+│   ├── adam.py
+│   └── scheduler.py
+│
+└── experiments/
+    ├── mnist_newton.py
+    ├── test_hessian.py
+    ├── compare_optimizers.py
+    └── debug_backprop.py
+```
+
+## Overview
+
 ## Abstract
 
 _(Content to be added here)_
