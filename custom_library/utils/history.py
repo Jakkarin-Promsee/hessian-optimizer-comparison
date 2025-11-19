@@ -1,47 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-class DenseLayer:
-    def __init__(self, input_dim, output_dim):
-        self.W = np.random.randn(input_dim, output_dim) * np.sqrt(2/input_dim)
-        self.b = np.random.randn(1, output_dim) * 0.01 
-        self.input_dim = input_dim
-        self.output_dim = output_dim
-
-    def params_count(self):
-        return self.input_dim * self.output_dim + self.output_dim
-
-class ActivationLayer:
-    def __init__(self, method):
-        if(method=="relu"):
-            self.activate_func = self.relu
-            self.activate_derivative = self.relu_derivative
-        else:
-            self.activate_func = None
-            self.activate_derivative = None
-
-    def forward(self, z):
-        if(self.activate_func is not None):
-            return self.activate_func(z)
-        return z
-    
-    def backward(self, z):
-        if(self.activate_derivative is not None):
-            return self.activate_derivative(z)
-        return z
-    
-    # ----------------------------- Method Part ----------------------------
-
-    def relu(self, x):
-        f = np.copy(x)
-        f[x<0] = 0
-        return f
-    
-    def relu_derivative(self, x):
-        g = np.zeros_like(x)
-        g[x > 0] = 1.0      # subgradient 0 at x==0
-        return g
-
 class History:
     def __init__(self):
         # Each entry = [train_acc, val_acc]

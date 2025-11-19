@@ -1,7 +1,9 @@
-from typing import List, Union
 import numpy as np
-from zmq import NULL
-from .modelUtils import History, DenseLayer, ActivationLayer
+from typing import List, Union
+
+from ..layers import DenseLayer, ActivationLayer
+from ..utils import History, metrics
+
 
 class BaseLrModel:
     def __init__(self):
@@ -9,14 +11,14 @@ class BaseLrModel:
 
         # Using type hints.
         self.layers: List[Union[DenseLayer, ActivationLayer]] = []
-        self.last_output_dim = NULL
+        self.last_output_dim = None
     
-    def add(self, dense, activation="", input_shape=NULL):
+    def add(self, dense, activation="", input_shape=None):
         """Add layer to models. First adding should provide input_shape"""
         # Set input_shape
-        if(self.last_output_dim == NULL and input_shape == NULL):
+        if(self.last_output_dim == None and input_shape == None):
             raise ValueError("Input shape missing")
-        elif(self.last_output_dim == NULL):
+        elif(self.last_output_dim == None):
             self.last_output_dim = input_shape
 
         # Create Dense layer
@@ -73,7 +75,8 @@ class BaseLrModel:
                 a = layer.forward(a)
 
         # Return last layer output
-        return a   
+        return a
+
     def fit(self, X, y, **kwargs):
         # A simple base fit method can raise an error or just pass
         raise NotImplementedError("The 'fit' method must be implemented by the subclass.")
