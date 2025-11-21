@@ -6,7 +6,11 @@ from ..layers import DenseLayer, ActivationLayer
 from ..utils import metrics
 
 class ImplicitLrModel(BaseLrModelsImplementHessain):
-    def fit(self, X_train, y_train, X_eval, y_eval, epochs=100, batch_size=32, learning_rate=0.1, epsilon=1e-5):
+    def __init__(self):
+        super(ImplicitLrModel, self).__init__()
+        self.introUsingNormalGD = 2
+
+    def fit(self, X_train, y_train, X_eval, y_eval, epochs=100, batch_size=32, learning_rate=0.1, epsilon=1e-5,intro_navigate=False, intro_learning_rate=1e-4):
         """train models"""
         n_samples = X_train.shape[0]
 
@@ -18,28 +22,39 @@ class ImplicitLrModel(BaseLrModelsImplementHessain):
                 y_true_batch = y_train[batch_start:batch_end]
                 X_batch = X_train[batch_start:batch_end]
 
+                # Normal GD method, use to prepare landscape
+                if(intro_navigate and self.introUsingNormalGD>0):
+                    self.introUsingNormalGD-=1
+
+                    theta, shapes = self.flatten_params(self.layers)
+                    g = self.compute_gradient(self.layers, X_batch, y_true_batch)
+
+                    theta_new = theta - intro_learning_rate*g
+                    self.unflatten_params(self.layers, theta_new, shapes)
+
                 # Backward euler on a quadratic method
-                theta, shapes = self.flatten_params(self.layers)
-                g = self.compute_gradient(self.layers, X_batch, y_true_batch)
-                H = self.compute_hessian(self.layers, X_batch, y_true_batch, epsilon=epsilon)  
-                
-                # (I + eta H)
-                H_i = np.eye(H.shape[0]) + learning_rate*H
+                else:
+                    theta, shapes = self.flatten_params(self.layers)
+                    g = self.compute_gradient(self.layers, X_batch, y_true_batch)
+                    H = self.compute_hessian(self.layers, X_batch, y_true_batch, epsilon=epsilon)  
+                    
+                    # (I + eta H)
+                    H_i = np.eye(H.shape[0]) + learning_rate*H
 
-                # (theta + eta b)
-                theta_term = theta + learning_rate*(np.dot(H, theta) - g)
+                    # (theta + eta b)
+                    theta_term = theta + learning_rate*(np.dot(H, theta) - g)
 
-                # Calculate quadratic step direction
-                try:
-                    # theta_k+1 = (I + eta H)^-1 (theta_k + eta b)
-                    # Solve: (I + eta H) * delta = (theta + eta b)
-                    delta = np.linalg.solve(H_i, theta_term)
-                except np.linalg.LinAlgError:
-                    print("Warning: Hessian is singular. Skipping step.")
-                    continue  
+                    # Calculate quadratic step direction
+                    try:
+                        # theta_k+1 = (I + eta H)^-1 (theta_k + eta b)
+                        # Solve: (I + eta H) * delta = (theta + eta b)
+                        delta = np.linalg.solve(H_i, theta_term)
+                    except np.linalg.LinAlgError:
+                        print("Warning: Hessian is singular. Skipping step.")
+                        continue  
 
-                # --- Update Weight (using the accepted theta_new) ---
-                self.unflatten_params(self.layers, delta, shapes)
+                    # --- Update Weight (using the accepted theta_new) ---
+                    self.unflatten_params(self.layers, delta, shapes)
 
                 # Predict
                 pred_batch = self.predict(X_batch)

@@ -13,8 +13,6 @@ class BaseLrModel:
         self.layers: List[Union[DenseLayer, ActivationLayer]] = []
         self.last_output_dim = None
 
-        print('test')
-
     def getHistory(self):
         return self.history
     
