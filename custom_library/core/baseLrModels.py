@@ -1,9 +1,9 @@
+import copy
 import numpy as np
 from typing import List, Union
 
 from ..layers import DenseLayer, ActivationLayer
 from ..utils import History, metrics
-
 
 class BaseLrModel:
     def __init__(self):
@@ -17,6 +17,9 @@ class BaseLrModel:
 
     def getHistory(self):
         return self.history
+    
+    def copylayers(self, layers):
+        self.layers = copy.deepcopy(layers)
     
     def add(self, dense, activation="", input_shape=None):
         """Add layer to models. First adding should provide input_shape"""
@@ -52,7 +55,6 @@ class BaseLrModel:
     
     def rollback(self):
         self.layers = self.history.get_best_layers()
-    
     
     def predict_best(self, X):
         self.layers = self.history.get_best_layers()

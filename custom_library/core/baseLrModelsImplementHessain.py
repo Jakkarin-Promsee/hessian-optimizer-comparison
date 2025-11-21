@@ -4,7 +4,7 @@ import copy
 from . import BaseLrModel
 from ..layers import DenseLayer, ActivationLayer
 
-class BaseLrModelImplementHessain(BaseLrModel):
+class BaseLrModelsImplementHessain(BaseLrModel):
     def flatten_params(self, layers):
         flat_list = []
         shapes = []

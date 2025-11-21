@@ -1,147 +1,12 @@
 import copy
 import numpy as np
 
-from ..core import BaseLrModel
+from ..core import BaseLrModelsImplementHessain
 from ..layers import DenseLayer, ActivationLayer
 from ..utils import metrics
 
-class ImplicitLrModel(BaseLrModel):
-    def flatten_params(self, layers):
-        flat_list = []
-        shapes = []
-
-        for layer in layers:
-            if(isinstance(layer, ActivationLayer)):
-                continue
-
-            if hasattr(layer, "W"):
-                shapes.append(("W", layer.W.shape))
-                flat_list.append(layer.W.ravel())
-
-            if hasattr(layer, "b"):
-                shapes.append(("b", layer.b.shape))
-                flat_list.append(layer.b.ravel())
-
-        return np.concatenate(flat_list), shapes
-    
-    def unflatten_params(self, layers, theta_vec, shapes):
-        i=0
-        idx = 0
-        for layer in layers:
-            if(isinstance(layer, ActivationLayer)):
-                continue
-            
-            if hasattr(layer, "W"):
-                name, shape = shapes[i]
-                size = np.prod(shape)
-                layer.W = theta_vec[idx:idx+size].reshape(shape)
-                idx += size
-                i += 1
-
-            if hasattr(layer, "b"):
-                name, shape = shapes[i]
-                size = np.prod(shape)
-                layer.b = theta_vec[idx:idx+size].reshape(shape)
-                idx += size
-                i += 1
-
-    # New method to add to NewtonLrModel class:
-    def compute_loss(self, layers, X, y_true):
-        # Forward pass logic (can reuse compute_gradient's forward pass)
-        a = np.array(X)
-        for layer in layers:
-            if(isinstance(layer, DenseLayer)):
-                a = np.dot(a, layer.W) + layer.b
-            if(isinstance(layer, ActivationLayer)):
-                a = layer.forward(a)
-        y_pred = a
-        
-        # Calculate MSE Loss: (1/N) * sum((y_pred - y_true)^2)
-        N = X.shape[0]
-        loss = np.sum((y_pred - y_true)**2) / N
-        return loss
-
-    def compute_gradient(self, layers, X, y_true):
-        # Forward pass
-        a = np.array(X)
-        zal = [a] # to keep both z or a
-
-        for layer in layers:
-            # If now we're on dense layer
-            if(isinstance(layer, DenseLayer)):
-                if(a.shape[1] != layer.input_dim):
-                    raise ValueError("Input dimension mismatch: expected " + 
-                                    f"{layer.input_dim}, got {a.shape[1]}")
-                a = np.dot(a, layer.W) + layer.b
-
-            # If now we're on activation layer
-            if(isinstance(layer, ActivationLayer)):
-                a = layer.forward(a)
-
-            # keep forward data
-            zal.append(a)
-
-        # Get zi
-        y_pred = a
-
-        # dL/dz (MSE) = (2/N)*(zi-yi)
-        dL_dz = (2/X.shape[0]) * (y_pred - y_true)
-
-        # Set iterator
-        i = len(zal)-1 
-
-        gradient = []
-
-        # Compute gradients and Update weights
-        for layer in reversed(list(layers)): 
-            # cause i=max() have done calculate at first dL/dz
-            i-=1
-
-            if(isinstance(layer, DenseLayer)):           
-                # Compute Gradient     
-                dL_dW = np.dot(zal[i].T, dL_dz)
-                dL_db = np.sum(dL_dz, axis=0, keepdims=True)
-
-                # Store Gradient
-                gradient.insert(0, dL_db)
-                gradient.insert(0, dL_dW)
-                
-                # Compute next delta
-                dL_dz = np.dot(dL_dz, layer.W.T)
-
-            if(isinstance(layer, ActivationLayer)):
-                dL_dz = layer.backward(zal[i]) * dL_dz
-
-        return np.concatenate([g.ravel() for g in gradient])
-
-    
-    def compute_hessian(self, layers, X, y, epsilon=1e-2):
-        theta, shapes = self.flatten_params(layers)
-        
-        N = theta.size
-        H = np.zeros((N, N))
-
-        for j in range(N):
-            e = np.zeros(N)
-            e[j] = 1
-
-            # theta + eps
-            theta_pos = theta + epsilon * e
-            layers_pos = copy.deepcopy(layers)
-            self.unflatten_params(layers_pos, theta_pos, shapes)
-            g_pos = self.compute_gradient(layers_pos, X, y)
-
-            # theta - eps
-            theta_neg = theta - epsilon * e
-            layers_neg = copy.deepcopy(layers)
-            self.unflatten_params(layers_neg, theta_neg, shapes)
-            g_neg = self.compute_gradient(layers_neg, X, y)
-
-            # second derivative column j
-            H[:, j] = (g_pos - g_neg) / (2 * epsilon)
-        return H
-
-    def fit(self, X_train, y_train, X_eval, y_eval, epochs=100, batch_size=32, learning_rate=10.0):
+class ImplicitLrModel(BaseLrModelsImplementHessain):
+    def fit(self, X_train, y_train, X_eval, y_eval, epochs=100, batch_size=32, learning_rate=0.1, epsilon=1e-5):
         """train models"""
         n_samples = X_train.shape[0]
 
@@ -156,34 +21,33 @@ class ImplicitLrModel(BaseLrModel):
                 # Backward euler on a quadratic method
                 theta, shapes = self.flatten_params(self.layers)
                 g = self.compute_gradient(self.layers, X_batch, y_true_batch)
-                H = self.compute_hessian(self.layers, X_batch, y_true_batch, epsilon=1e-5)  # smaller epsilon
+                H = self.compute_hessian(self.layers, X_batch, y_true_batch, epsilon=epsilon)  
+                
                 # (I + eta H)
-                H_i = learning_rate*H + np.eye(H.shape[0])
+                H_i = np.eye(H.shape[0]) + learning_rate*H
 
                 # (theta + eta b)
                 theta_term = theta + learning_rate*(np.dot(H, theta) - g)
 
-                # Calculate Newton step direction (delta)
+                # Calculate quadratic step direction
                 try:
+                    # theta_k+1 = (I + eta H)^-1 (theta_k + eta b)
                     # Solve: (I + eta H) * delta = (theta + eta b)
                     delta = np.linalg.solve(H_i, theta_term)
                 except np.linalg.LinAlgError:
                     print("Warning: Hessian is singular. Skipping step.")
                     continue  
 
-
-                print((np.linalg.solve(H_i, theta_term)))
-
-                # theta new = (I + eta H)^-1 (theta + eta b)
                 # --- Update Weight (using the accepted theta_new) ---
-                # Use the accepted theta_new (computed at the end of the line search)
                 self.unflatten_params(self.layers, delta, shapes)
 
                 # Predict
+                pred_batch = self.predict(X_batch)
                 pred_train = self.predict(X_train)
                 pred_eval = self.predict(X_eval)
 
                 # Evaluate
+                batch_acc = metrics.mae(y_true_batch, pred_batch)
                 train_acc = metrics.mae(y_train, pred_train)
                 val_acc = metrics.mae(y_eval, pred_eval)
                 
@@ -191,19 +55,21 @@ class ImplicitLrModel(BaseLrModel):
                 self.history.save(train_acc, val_acc)
                 self.history.save_predict(X_eval, pred_eval, y_eval)
                 self.history.save_model(self.layers, val_acc)
-                print(f"Batch {batch_start}/{n_samples}: acc: {train_acc}, val: {val_acc}")
 
-            print(f"Epoch {epoch+1}/{epochs} [", end="")
+                # Log batch data
+                print(f"Epoch {epoch+1}/{epochs} [", end="")
 
-            progress_bar_length = 25
-            progress = int((epoch/epochs)*progress_bar_length)
-            for i in range(progress_bar_length):
-                if(i<=progress):
-                    print("=", end="")
-                else:
-                    print(".", end="")
-            print("]")
-            print(f"loss: {train_acc:.4f}, val_loss: {val_acc:.4f}")
-            print("") 
+                progress_bar_length = 25
+                progress = int((epoch/epochs)*progress_bar_length)
+                for i in range(progress_bar_length):
+                    if(i<=progress):
+                        print("=", end="")
+                    else:
+                        print(".", end="")
+                print("]", end=", ")
+
+                print(f"{batch_start}/{n_samples}: ")
+                print(f"batch: {batch_acc:.3f}, acc: {train_acc:.3f}, val: {val_acc:.3f}")
+
         print(f"best-loss: {self.history.get_best_loss():.4f}")
         return self.history

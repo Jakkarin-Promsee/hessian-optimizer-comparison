@@ -1,11 +1,11 @@
 import copy
 import numpy as np
 
-from ..core import BaseLrModelImplementHessain
+from ..core import BaseLrModelsImplementHessain
 from ..utils import metrics
 
-class NewtonLrModel(BaseLrModelImplementHessain):
-    def fit(self, X_train, y_train, X_eval, y_eval, epochs=100, batch_size=32):
+class NewtonLrModel(BaseLrModelsImplementHessain):
+    def fit(self, X_train, y_train, X_eval, y_eval, epochs=100, batch_size=32, damping_factor = 1e-4, epsilon=1e-3):
         """train models"""
         n_samples = X_train.shape[0]
 
@@ -19,18 +19,15 @@ class NewtonLrModel(BaseLrModelImplementHessain):
 
                 # Newton method
                 theta, shapes = self.flatten_params(self.layers)
-                H = self.compute_hessian(self.layers, X_batch, y_true_batch)
+                H = self.compute_hessian(self.layers, X_batch, y_true_batch,epsilon=epsilon)
                 g = self.compute_gradient(self.layers, X_batch, y_true_batch)
 
-                # Using damping to prevent det(H) = 0
-                damping_factor = 1e-4 
+                # Using damping to prevent det(H) = 0 
                 H_damped = H + damping_factor * np.eye(H.shape[0])
 
                 # H * theta = g
                 # theta = solve(H,g)
                 delta = -np.linalg.solve(H_damped, g)   
-
-                print(delta)
 
                 # Compute new theta
                 theta_new = theta + delta
@@ -38,30 +35,35 @@ class NewtonLrModel(BaseLrModelImplementHessain):
                 # Update Weight
                 self.unflatten_params(self.layers, theta_new, shapes)
 
-            # Predict
-            pred_train = self.predict(X_train)
-            pred_eval = self.predict(X_eval)
+                # Predict
+                pred_batch = self.predict(X_batch)
+                pred_train = self.predict(X_train)
+                pred_eval = self.predict(X_eval)
 
-            # Evaluate
-            train_acc = metrics.mae(y_train, pred_train)
-            val_acc = metrics.mae(y_eval, pred_eval)
-            
-            # Save
-            self.history.save(train_acc, val_acc)
-            self.history.save_predict(X_eval, pred_eval, y_eval)
-            self.history.save_model(self.layers, val_acc)
+                # Evaluate
+                batch_acc = metrics.mae(y_true_batch, pred_batch)
+                train_acc = metrics.mae(y_train, pred_train)
+                val_acc = metrics.mae(y_eval, pred_eval)
+                
+                # Save
+                self.history.save(train_acc, val_acc)
+                self.history.save_predict(X_eval, pred_eval, y_eval)
+                self.history.save_model(self.layers, val_acc)
 
-            print(f"Epoch {epoch+1}/{epochs} [", end="")
+                # Log batch data
+                print(f"Epoch {epoch+1}/{epochs} [", end="")
 
-            progress_bar_length = 25
-            progress = int((epoch/epochs)*progress_bar_length)
-            for i in range(progress_bar_length):
-                if(i<=progress):
-                    print("=", end="")
-                else:
-                    print(".", end="")
-            print("]")
-            print(f"loss: {train_acc:.4f}, val_loss: {val_acc:.4f}")
-            print("") 
+                progress_bar_length = 25
+                progress = int((epoch/epochs)*progress_bar_length)
+                for i in range(progress_bar_length):
+                    if(i<=progress):
+                        print("=", end="")
+                    else:
+                        print(".", end="")
+                print("]", end=", ")
+
+                print(f"{batch_start}/{n_samples}: ")
+                print(f"batch: {batch_acc:.3f}, acc: {train_acc:.3f}, val: {val_acc:.3f}")
+                
         print(f"best-loss: {self.history.get_best_loss():.4f}")
         return self.history
