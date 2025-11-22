@@ -202,9 +202,11 @@ $$
 $$
 
 $$
-\theta_{k+1} + \eta H \theta_{k+1} = \theta{k} + \eta b \\
-(I + \eta H)(\theta_{k+1}) = \theta{k} + \eta b \\
-\theta_{k+1} = (I + eta H)^{-1} (\theta{k} + \eta b)
+\begin{align*}
+  \theta_{k+1} + \eta H \theta_{k+1} = \theta{k} + \eta b \\
+  (I + \eta H)(\theta_{k+1}) = \theta{k} + \eta b \\
+  \theta_{k+1} = (I + eta H)^{-1} (\theta{k} + \eta b)
+\end{align*}
 $$
 
 Then, solitude b:
