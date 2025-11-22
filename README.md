@@ -68,17 +68,17 @@ $$\text{Implicit GD} > \text{Explicit GD}, \quad \text{Newton GD is unstable}$$
   - Explicit GD eventually converges but requires much longer training.
   - Newton GD becomes unstable when the loss drops below ~4%, as Hessian sensitivity amplifies noise, causing erratic updates.
 
-#### 3. Conclusion (Long-Term Behavior)
-
-- **Explicit GD**: Slow but safe; eventually converges with enough training.
-- **Implicit GD**: Stable and follows a quadratic path; converges faster than explicit GD in the long term.
-- **Newton GD**: Extremely fast at the beginning but becomes unstable later due to Hessian sensitivity and noise amplification.
-
 <p align="center" style="text-align: center;">
   <img src="docs-src/result/long-convergence-speed.png" alt="Long-Term Convergence Comparison" width="450px">
   <br>
   <em>Figure 2: Validation loss comparison over extended training</em>
 </p>
+
+#### 3. Conclusion (Long-Term Behavior)
+
+- **Explicit GD**: Slow but safe; eventually converges with enough training.
+- **Implicit GD**: Stable and follows a quadratic path; converges faster than explicit GD in the long term.
+- **Newton GD**: Extremely fast at the beginning but becomes unstable later due to Hessian sensitivity and noise amplification.
 
 ## Project Structure
 
