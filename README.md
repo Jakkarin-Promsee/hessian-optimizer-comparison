@@ -157,10 +157,10 @@ First, subtitude second-order terms from Taylor Series:
 $$
 \begin{align*}
   \frac{1}{2} (\Delta \theta)^T H (\Delta \theta) &=
-  \frac{1}{2} (\theta - \theta_0)^T H (\theta - \theta_0) \\ &=
-  \frac{1}{2} \left[ (\theta^T H \theta) + (\theta_0^T H \theta) + (\theta^T H \theta_0) + (\theta_0^T H \theta_0) \right] \\ &=
-  \frac{1}{2} \left[ (\theta^T H \theta) + (\theta^T H \theta_0) + (\theta^T H \theta_0) + (\theta_0^T H \theta_0) \right] \\ &=
-\frac{1}{2} (\theta^T H \theta) + (\theta^T H \theta_0)  + \frac{1}{2} (\theta_0^T H \theta_0)
+  \frac{1}{2} (\theta - \theta_0)^T H (\theta - \theta_0) \\
+  &= \frac{1}{2} \left[ (\theta^T H \theta) + (\theta_0^T H \theta) + (\theta^T H \theta_0) + (\theta_0^T H \theta_0) \right] \\
+  &= \frac{1}{2} \left[ (\theta^T H \theta) + (\theta^T H \theta_0) + (\theta^T H \theta_0) + (\theta_0^T H \theta_0) \right] \\
+  &= \frac{1}{2} (\theta^T H \theta) + (\theta^T H \theta_0)  + \frac{1}{2} (\theta_0^T H \theta_0)
 \end{align*}
 $$
 
@@ -169,9 +169,9 @@ Then, subtitude second-order terms to full terms from Taylor Series:
 $$
 \begin{align*}
   L(\theta) &=
-  L(\theta_0) + g^T (\Delta \theta) + \frac{1}{2} (\theta^T H \theta) + (\theta^T H \theta_0)  + \frac{1}{2} (\theta_0^T H \theta_0) \\ &=
-  \frac{1}{2} \left[ H \right] \theta^2 - \left[ H \theta_0 - g \right]^T \theta + \left[ L(\theta_0) + \frac{1}{2} (\theta_0^T H \theta_0) \right] \\ &=
-  a \theta^2 - b \theta + c
+  L(\theta_0) + g^T (\Delta \theta) + \frac{1}{2} (\theta^T H \theta) + (\theta^T H \theta_0)  + \frac{1}{2} (\theta_0^T H \theta_0) \\
+  &= \frac{1}{2} \left[ H \right] \theta^2 - \left[ H \theta_0 - g \right]^T \theta + \left[ L(\theta_0) + \frac{1}{2} (\theta_0^T H \theta_0) \right] \\
+  &= a \theta^2 - b \theta + c
   \end{align*}
 $$
 
