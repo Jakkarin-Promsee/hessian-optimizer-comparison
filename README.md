@@ -171,11 +171,47 @@ $$
   L(\theta) &=
   L(\theta_0) + g^T (\Delta \theta) + \frac{1}{2} (\theta^T H \theta) + (\theta^T H \theta_0)  + \frac{1}{2} (\theta_0^T H \theta_0) \\
   &= \frac{1}{2} \left[ H \right] \theta^2 - \left[ H \theta_0 - g \right]^T \theta + \left[ L(\theta_0) + \frac{1}{2} (\theta_0^T H \theta_0) \right] \\
-  &= a \theta^2 - b \theta + c
-  \end{align*}
+  &= \frac{1}{2} a \theta^2 - b \theta + c
+\end{align*}
 $$
 
 #### 1.2 Implicit Gradient Descend (Backward euler on quadratic)
+
+This gradient descend will use second-order terms of taylor series. But there are more special, from exlicit we use $\theta_{k+1} = \theta{k} - \eta \nabla L_k$, mean we move for length $\eta$ in $\nabla L_k$ direction .
+
+But Implicit gradient use $\theta_{k+1} = \theta{k} - \eta \nabla L_{k+1}$ with more precise terms of Talylor series, making we predic position when we move for length $\eta$ and already forcast slope at $\theta_{k+1}$ point, then move to the direction slope aim. It's the 2 chian of prediction paradox.
+
+First, finding $\nabla L_{k+1}$:
+
+$$
+L(\theta) \approx \frac{1}{2} H \theta^2 - b \theta + c
+$$
+
+$$
+\nabla L(\theta) \approx H \theta - b
+$$
+
+Then, solitude in $\theta_{k+1} = \theta{k} - \eta \nabla L_{k+1}$:
+
+$$
+\begin{align*}
+  \theta_{k+1} &= \theta{k} - \eta \nabla L_{k+1} \\
+  &= \theta{k} - \eta (H \theta_{k+1} - b) \\
+  &= \theta{k} - \eta H \theta_{k+1} + \eta b
+\end{align*}
+$$
+
+$$
+\theta_{k+1} + \eta H \theta_{k+1} = \theta{k} + \eta b \\
+(I + \eta H)(\theta_{k+1}) = \theta{k} + \eta b \\
+\theta_{k+1} = (I + eta H)^{-1} (\theta{k} + \eta b)
+$$
+
+Then, solitude b:
+
+$$
+\text{Implicit GD:} \quad \theta_{k+1} = (I + \eta H)^{-1} (\theta{k} + \eta H \theta_k - \eta g)
+$$
 
 #### 1.3 Newton Gradient Descend (Newton's Method)
 
