@@ -116,7 +116,7 @@ Project/
 
 #### 1.0.1 Taylor Series
 
-Taylor series is an approximation $L(\theta)$ around current point $\theta$ with distance $\Delta \theta = \theta - \theta_0$:
+The Taylor series gives an approximation of $L(\theta)$ around the current point $\theta$, with $\Delta \theta = \theta - \theta_0$:
 
 $$
 L(\theta + \Delta \theta) \approx L(\theta) + (\nabla L(\theta))^T (\Delta \theta) +
@@ -130,14 +130,22 @@ $$
 
 #### 1.1 Explicit Gradient Descend (Normal Gradient Descend)
 
-This gradient descend will use only first-order terms of taylor series. Choosing $\Delta \theta$ to maximize the decreasing of loss with linear approximation.
+Explicit gradient descent uses only the first-order terms of the Taylor series.
+
+We choose $\Delta \theta$ to maximize the decrease in the loss under the linear approximation:
 
 $$
 \Delta L \approx (\nabla L(\theta))^T \Delta \theta
 \approx Minimize(\lVert \nabla L(\theta) \rVert \lVert \Delta \theta \rVert \cos (\phi))
-, \quad \text{that is} \quad
+$$
+
+The minimum occurs when:
+
+$$
 \cos (\phi) = -1 , \quad \phi = -180 \degree
 $$
+
+Thus:
 
 $$
 \text{Explicit GD:} \quad \theta_{k+1} = \theta_k - \eta \nabla L(\theta)
@@ -145,14 +153,18 @@ $$
 
 #### 1.0.2 Quadratic form from Taylor Series
 
-We will build $L(\theta) = a \Delta \theta^2 - b \Delta \theta + c$.
+We construct the quadratic approximation:
 
-Consider:
+$$
+L(\theta) = a \Delta \theta^2 - b \Delta \theta + c
+$$
+
+Recall:
 
 - $\Delta theta = \theta - \theta_0$
 - $L(\theta + \Delta \theta) \approx L(\theta) + g_t^T (\Delta \theta) + (\Delta \theta)^T H_t (\Delta \theta) + \cdots$
 
-First, subtitude second-order terms from Taylor Series:
+Substitute the second-order term:
 
 $$
 \begin{align*}
@@ -164,7 +176,7 @@ $$
 \end{align*}
 $$
 
-Then, subtitude second-order terms to full terms from Taylor Series:
+Then the full approximation becomes:
 
 $$
 \begin{align*}
@@ -177,11 +189,24 @@ $$
 
 #### 1.2 Implicit Gradient Descend (Backward euler on quadratic)
 
-This gradient descend will use second-order terms of taylor series. But there are more special, from exlicit we use $\theta_{k+1} = \theta{k} - \eta \nabla L_k$, mean we move for length $\eta$ in $\nabla L_k$ direction .
+Implicit gradient descent uses the second-order Taylor approximation.
 
-But Implicit gradient use $\theta_{k+1} = \theta{k} - \eta \nabla L_{k+1}$ with more precise terms of Talylor series, making we predic position when we move for length $\eta$ and already forcast slope at $\theta_{k+1}$ point, then move to the direction slope aim. It's the 2 chian of prediction paradox.
+Unlike explicit GD, which uses:
 
-First, finding $\nabla L_{k+1}$:
+$$
+\theta_{k+1} = \theta{k} - \eta \nabla L_k
+$$
+
+Implicit GD uses:
+
+$$
+\theta_{k+1} = \theta{k} - \eta \nabla L_{k+1}
+$$
+
+This means we predict where the next point will be, compute the gradient there,
+and move according to that slope — a two-step prediction process.
+
+From the quadratic approximation:
 
 $$
 L(\theta) \approx \frac{1}{2} H \theta^2 - b \theta + c
@@ -191,7 +216,7 @@ $$
 \nabla L(\theta) \approx H \theta - b
 $$
 
-Then, solitude in $\theta_{k+1} = \theta{k} - \eta \nabla L_{k+1}$:
+Substitute into the update rule:
 
 $$
 \begin{align*}
@@ -205,11 +230,16 @@ $$
 \begin{align*}
   \theta_{k+1} + \eta H \theta_{k+1} = \theta{k} + \eta b \\
   (I + \eta H)(\theta_{k+1}) = \theta{k} + \eta b \\
-  \theta_{k+1} = (I + \eta H)^{-1} (\theta{k} + \eta b)
 \end{align*}
 $$
 
-Then, solitude b:
+Thus:
+
+$$
+\theta_{k+1} = (I + \eta H)^{-1} (\theta{k} + \eta b)
+$$
+
+Substituting $b = H \theta_k - g$
 
 $$
 \text{Implicit GD:} \quad \theta_{k+1} = (I + \eta H)^{-1} (\theta{k} + \eta H \theta_k - \eta g)
@@ -217,19 +247,21 @@ $$
 
 #### 1.3 Newton Gradient Descend (Newton's Method)
 
-This gradient type will use same ideas as implicit GD, but instead of we gradully move forward with length $\eta$ on quadratic approximation, We rather intermidaitelly jump into the optimum where $\nabla L(\theta) = 0$ to get fastest convergence in each neural.
+Newton’s method also uses the quadratic approximation, but instead of taking a small step of size $\eta$, it directly jumps to the stationary point where the gradient is zero:
 
-From quadratic formular:
+From the quadratic:
 
 $$
 L(\theta) \approx L(\theta_0) + g^T (\Delta \theta) + \frac{1}{2} ((\Delta \theta)^T H (\Delta\theta))
 $$
 
+Gradient:
+
 $$
 \nabla L(\theta) \approx  g +  H (\Delta \theta)
 $$
 
-Then $\nabla L(\theta) = 0$
+Setting $\nabla L(\theta) = 0$:
 
 $$
 0 \approx  g +  H (\Delta \theta)
@@ -486,21 +518,3 @@ $$
 - $(v_i^T x)^2$ = Contribution of $x$ in $v_i$ direction.
 
 ---
-
-# On progress
-
----
-
-# Prop
-
-$$
-
-\begin{array}{l}
-
-\end{array}
-
-
-$$
-
-$$
-$$
