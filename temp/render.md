@@ -58,44 +58,14 @@ This repository explores and compares three gradient descent approaches—**Expl
   - Explicit GD eventually converges but requires much longer training.
   - Newton GD becomes unstable when the loss drops below ~4%, as Hessian sensitivity amplifies noise, causing erratic updates.
 
-#### 3. Conclusion (Long-Term Behavior)
-
-- **Explicit GD**: Slow but safe; eventually converges with enough training.
-- **Implicit GD**: Stable and follows a quadratic path; converges faster than explicit GD in the long term.
-- **Newton GD**: Extremely fast at the beginning but becomes unstable later due to Hessian sensitivity and noise amplification.
-
 <p align="center" style="text-align: center;">
   <img src="../docs-src/result/long-convergence-speed.png" alt="Long-Term Convergence Comparison" width="450px">
   <br>
   <em>Figure 2: Validation loss comparison over extended training</em>
 </p>
 
-## Project Structure
+#### 3. Conclusion (Long-Term Behavior)
 
-```bash
-Project/
-├── Custom_library/
-│    │
-│    ├── core/               # The absolute fundamentals of all models
-│    │   ├── baseLrModels.py             # base models funciton: getHistory(), predict(), save(), etc.
-│    │   └── baseLrModelsImplementHessain.py         # implement compute tools: computeLoss(), computeGradient(), computeHessain()
-│    │
-│    ├── layers/             # Pure layer implementations
-│    │   ├── denseLayer.py
-│    │   └── activationLayer.py
-│    │
-│    ├── models/             # Training *strategies*
-│    │   ├── explicitLrModel.py
-│    │   ├── implicitLrModel.py
-│    │   ├── newtonLrModel.py
-│    │   └── optimizeNewtonLrModel.py
-│    │
-│    └── utils/              # Tools, not ML logic
-│        ├── history.py
-│        ├── metrics.py
-│        └── dataUtils.py
-│
-├── main.ipynb      # Experiment lab, including all process
-│
-└── README.md       # Experiment report, including all description
-```
+- **Explicit GD**: Slow but safe; eventually converges with enough training.
+- **Implicit GD**: Stable and follows a quadratic path; converges faster than explicit GD in the long term.
+- **Newton GD**: Extremely fast at the beginning but becomes unstable later due to Hessian sensitivity and noise amplification.
