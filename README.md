@@ -134,7 +134,7 @@ This gradient descend will use only first-order terms of taylor series. Choosing
 
 $$
 \Delta L \approx (\nabla L(\theta))^T \Delta \theta
-\approx Minimize(|| \nabla L(\theta) || || \Delta \theta || \cos (\phi))
+\approx Minimize(\lVert \nabla L(\theta) \rVert \lVert \Delta \theta \rVert \cos (\phi))
 , \quad \text{that is} \quad
 \cos (\phi) = -1 , \quad \phi = -180 \degree
 $$
