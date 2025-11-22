@@ -205,7 +205,7 @@ $$
 \begin{align*}
   \theta_{k+1} + \eta H \theta_{k+1} = \theta{k} + \eta b \\
   (I + \eta H)(\theta_{k+1}) = \theta{k} + \eta b \\
-  \theta_{k+1} = (I + eta H)^{-1} (\theta{k} + \eta b)
+  \theta_{k+1} = (I + \eta H)^{-1} (\theta{k} + \eta b)
 \end{align*}
 $$
 
@@ -216,6 +216,38 @@ $$
 $$
 
 #### 1.3 Newton Gradient Descend (Newton's Method)
+
+This gradient type will use same ideas as implicit GD, but instead of we gradully move forward with length $\eta$ on quadratic approximation, We rather intermidaitelly jump into the optimum where $\nabla L(\theta) = 0$ to get fastest convergence in each neural.
+
+From quadratic formular:
+
+$$
+L(\theta) = L(\theta_0) + g^T (\Delta \theta) + \frac{1}{2} ((\Delta \theta)^T H (\Delta\theta))
+$$
+
+$$
+\nabla L(\theta) =  g +  H (\Delta \theta)
+$$
+
+Then $\nabla L(\theta) = 0$
+
+$$
+0 =  g +  H (\Delta \theta)
+$$
+
+$$
+H (\Delta \theta) =  -g
+$$
+
+$$
+\Delta \theta = -H^{-1} g
+$$
+
+Thus:
+
+$$
+\text{Newton GD:} \quad \theta_{k+1} = \theta_k - -H^{-1} g
+$$
 
 ---
 
