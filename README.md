@@ -119,13 +119,13 @@ Project/
 Taylor series is an approximation $L(\theta)$ around current point $\theta$ with distance $\Delta \theta = \theta - \theta_0$:
 
 $$
-L(\theta + \Delta \theta) \approx L(\theta) + (\nabla L(\theta))^T (\Delta \theta)
-+ (\Delta \theta)^T(\nabla^2 L(\theta)) (\Delta \theta) + \cdots
+L(\theta + \Delta \theta) \approx L(\theta) + (\nabla L(\theta))^T (\Delta \theta) +
+(\Delta \theta)^T(\nabla^2 L(\theta)) (\Delta \theta) + \cdots
 $$
 
 $$
-L(\theta + \Delta \theta) \approx L(\theta) + g_t^T (\Delta \theta)
-+ (\Delta \theta)^T H_t (\Delta \theta) + \cdots
+L(\theta + \Delta \theta) \approx L(\theta) + g_t^T (\Delta \theta) +
+(\Delta \theta)^T H_t (\Delta \theta) + \cdots
 $$
 
 #### 1.1 Explicit Gradient Descend (Normal Gradient Descend)
